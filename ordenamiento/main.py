@@ -1,5 +1,5 @@
 from generador import generar_datos, medir_tiempo
-from ordenamiento.graficador import graficar_resultados
+from graficador import graficar_resultados
 
 from algoritmos.bubble_sort import BubbleSort
 from algoritmos.quick_sort import QuickSort
