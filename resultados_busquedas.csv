@@ -1,0 +1,12 @@
+Tamanio,Algoritmo,Tiempo (s),Complejidad Teorica
+10000,Lineal,0.00018950,O(n)
+10000,Saltos,0.00005980,O(√n)
+10000,Ternaria,0.00003360,O(log₃ n)
+10000,Binaria,0.00001870,O(log n)
+100000,Lineal,0.00042300,O(n)
+100000,Saltos,0.00011420,O(√n)
+100000,Ternaria,0.00008700,O(log₃ n)
+100000,Binaria,0.00002880,O(log n)
+1000000,Saltos,0.00074610,O(√n)
+1000000,Ternaria,0.00004520,O(log₃ n)
+1000000,Binaria,0.00003310,O(log n)

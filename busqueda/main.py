@@ -1,18 +1,23 @@
 import random
-from generador import generar_arreglo
+import os
+from generador import generar_archivo
 from graficador import graficar
+from exportador import guardar_resultados_csv
 from algoritmos.busqueda_lineal import BusquedaLineal
 from algoritmos.busqueda_binaria import BusquedaBinaria
 from algoritmos.busqueda_ternaria import BusquedaTernaria
 from algoritmos.busqueda_saltos import BusquedaPorSaltos
 
-# Configura los límites de tamaño para ejecutar ciertos algoritmos
 LIMITES = {
-    "Lineal": 100_000,   # hasta 100 mil
+    "Lineal": 100_000,
     "Binaria": 1_000_000,
     "Ternaria": 1_000_000,
     "Saltos": 1_000_000
 }
+
+def cargar_arreglo_desde_archivo(nombre_archivo):
+    with open(nombre_archivo, 'r') as f:
+        return list(map(int, f.read().splitlines()))
 
 def ejecutar_busquedas(arreglo, objetivo, tamaño):
     resultados = {}
@@ -46,16 +51,22 @@ def ejecutar_busquedas(arreglo, objetivo, tamaño):
 
 if __name__ == "__main__":
     for tamaño in [10_000, 100_000, 1_000_000]:
-        print(f"\n📦 Generando arreglo de tamaño {tamaño}...")
-        arreglo = generar_arreglo(tamaño)
+        nombre_archivo = f"datos_{tamaño}.txt"
+
+        print(f"\n📦 Verificando/generando arreglo de tamaño {tamaño}...")
+        generar_archivo(nombre_archivo, tamaño)
+
+        arreglo = cargar_arreglo_desde_archivo(nombre_archivo)
         objetivo = arreglo[random.randint(0, tamaño - 1)]
         print(f"🎯 Elemento a buscar: {objetivo}")
 
         resultados = ejecutar_busquedas(arreglo, objetivo, tamaño)
 
-        print(f"\n📊 Resultados para tamaño {tamaño}:")
-        for nombre, tiempo in resultados.items():
+        print(f"\n📊 Resultados para tamaño {tamaño} (ordenados de mayor a menor):")
+        for nombre, tiempo in sorted(resultados.items(), key=lambda x: x[1], reverse=True):
             print(f"🔹 {nombre}: {tiempo:.8f} segundos")
 
         graficar(resultados, tamaño)
+        guardar_resultados_csv(resultados, tamaño)
+
 
